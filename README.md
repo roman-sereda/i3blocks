@@ -14,13 +14,13 @@ You can use three modes:
 I dont find anyway to create one file with three buttons, so instead we have three
 script files in `cmus_controllers` folder.
 
-#####CMUS_NEXT
+####CMUS_NEXT
 Instances: color, icon
 
-#####CMUS_PREVIOUS
+####CMUS_PREVIOUS
 Instances: color, icon
 
-#####CMUS_PLAY
+####CMUS_PLAY
 Instances: color, icon_play, icon_pause
 
 
