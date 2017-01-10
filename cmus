@@ -55,7 +55,7 @@ if [[ $? -eq 0 ]]; then
   fi
 
 else
-  OUT=$("Cmus off")
+  OUT=$(echo "Cmus off")
 fi
 
 echo "<span color='${COLOR}'><span font='FontAwesome'>${ICON} </span> ${OUT} </span>"

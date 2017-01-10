@@ -1,0 +1,12 @@
+#!/bin/bash
+
+COLOR=$(echo ${BLOCK_INSTANCE} | awk ' {print $2} ')
+ICON=$(echo ${BLOCK_INSTANCE} | awk ' {print $4} ')
+
+CURRENT_LAYOUT=$(/home/drunken/xkblayout-state/xkblayout-state print "%n")
+
+if [[ "${CURRENT_LAYOUT}" != "" ]]; then
+  echo "<span color='${COLOR}'><span font='FontAwesome'>"${ICON} "</span>" ${CURRENT_LAYOUT}"</span>"
+else
+  exit
+fi
