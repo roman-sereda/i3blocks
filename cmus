@@ -1,0 +1,22 @@
+#!/bin/bash
+
+INFO_CMUS=$(cmus-remote -Q 2>/dev/null)
+if [[ $? -eq 0 ]]; then
+   INFO_TITLE=$(echo "${INFO_CMUS}" | sed -n 2p | cut -d "-" -f2  | cut -d "." -f1 )
+   POSITION=$(echo "${INFO_CMUS}" | grep "position" | sed -e "s/^position//")
+   DURATION=$(echo "${INFO_CMUS}" | grep "duration" | sed -e "s/^duration//")
+else
+  exit
+fi
+
+MPOSITION=$(echo "scale=0;${POSITION}/60" | bc -l)
+SPOSITION=$(printf "%02d" $(echo "${POSITION} - 60*${MPOSITION}" | bc -l))
+MPOSITION=$(printf "%02d" ${MPOSITION})
+MDURATION=$(echo "scale=0;${DURATION}/60" | bc -l)
+SDURATION=$(printf "%02d" $(echo "${DURATION} - 60*${MDURATION}" | bc -l))
+MDURATION=$(printf "%02d" ${MDURATION})
+
+OUT=$(echo "<span color='#ae1738'><span font='FontAwesome'>" "</span>"${INFO_TITLE:0:25} ${MPOSITION}:${SPOSITION} / ${MDURATION}:${SDURATION}"</span>")
+
+echo "${OUT}"
+exit

@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Left click
+if [[ "${BLOCK_BUTTON}" -eq 1 ]]; then
+  amixer -D pulse sset Master 5%+
+# Middle click
+elif [[ "${BLOCK_BUTTON}" -eq 2 ]]; then
+  amixer -D pulse sset Master toggle
+# Right click
+elif [[ "${BLOCK_BUTTON}" -eq 3 ]]; then
+  amixer -D pulse sset Master 5%-
+fi
+
+statusLine=$(amixer -D pulse get Master | tail -n 1)
+status=$(echo "${statusLine}" | grep -wo "on")
+volume=$(echo "${statusLine}" | awk -F ' ' '{print $5}' | tr -d '[]%')
+
+if [[ "${status}" == "on" ]]; then
+  echo "<span color='#c47125'><span font='FontAwesome'>""</span>" ${volume}%"</span>"
+else
+  echo "<span color='#c47125'><span font='FontAwesome'>""</span>" off"</span>"
+fi

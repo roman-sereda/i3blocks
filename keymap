@@ -1,0 +1,8 @@
+#!/bin/bash
+
+CURRENT_LAYOUT=$(/home/drunken/xkblayout-state/xkblayout-state print "%n")
+
+if [[ "${CURRENT_LAYOUT}" != "" ]]; then
+  echo "<span color='#b6482d'><span font='FontAwesome'>""</span>" ${CURRENT_LAYOUT}"</span>"
+fi
+

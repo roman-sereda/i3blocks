@@ -1,0 +1,12 @@
+#!/bin/bash
+
+ACTIVE_WINDOW=$(xprop -id $(xprop -root _NET_ACTIVE_WINDOW | cut -d ' ' -f 5) WM_NAME | cut -d '"' -f 2)
+$ACTIVE_WINDOW = $ACTIVE_WINDOW
+
+if [[ "${ACTIVE_WINDOW}" != "" ]]; then
+	if [[ "${#ACTIVE_WINDOW}" > 17 ]]; then
+ echo "<span color='#c63735'><span font='FontAwesome'>""</span>" ${ACTIVE_WINDOW:0:17}.."</span>"
+	else
+ echo "<span color='#c63735'>" ${ACTIVE_WINDOW:0:20}"</span>"
+	fi
+fi

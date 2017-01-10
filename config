@@ -1,0 +1,151 @@
+#Mod key
+set $mod Mod1
+
+#Bar font
+font pango:terminus 8
+
+##Assignment to a named workspace
+ 
+#window
+new_window pixel 2
+new_float pixel 2
+gaps inner 12
+gaps outer 0
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+
+
+
+#----------Window----------
+
+#Kill current window
+bindsym $mod+Shift+q kill
+
+#Toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+#Enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+#Change Window's focus
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
+
+#Move focused window
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+colon move right
+
+
+
+#----------Window Orientation----------
+
+default_orientation auto
+
+#Create new window in horizontal orientation
+bindsym $mod+h split h
+
+#Create new window in vertical orientation
+bindsym $mod+v split v
+
+
+
+#----------Sound----------
+
+#Audio controls
+bindsym XF86AudioRaiseVolume exec amixer -D pulse sset Master 5%+ #increase sound volume
+bindsym XF86AudioLowerVolume exec amixer -D pulse sset Master 5%- #decrease sound volume
+bindsym XF86AudioMute exec amixer -D pulse sset Master toggle # mute sound
+
+
+
+#----------Workspaces----------
+
+#Switch to workspace
+bindsym $mod+1 workspace  1 home
+bindsym $mod+2 workspace  2 web
+bindsym $mod+3 workspace  3 term
+bindsym $mod+4 workspace  4 atom
+bindsym $mod+5 workspace  5 naut
+bindsym $mod+6 workspace  6 pol
+bindsym $mod+7 workspace  7 wt
+bindsym $mod+8 workspace  8 min
+bindsym $mod+9 workspace  9 nn
+bindsym $mod+0 workspace  0 nn
+
+#Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace  1 home
+bindsym $mod+Shift+2 move container to workspace  2 web
+bindsym $mod+Shift+3 move container to workspace  3 term
+bindsym $mod+Shift+4 move container to workspace  4 atom
+bindsym $mod+Shift+5 move container to workspace  5 naut
+bindsym $mod+Shift+6 move container to workspace  6 pol
+bindsym $mod+Shift+7 move container to workspace  7 wt
+bindsym $mod+Shift+8 move container to workspace  8 min
+bindsym $mod+Shift+9 move container to workspace  9 nn
+bindsym $mod+Shift+0 move container to workspace  0 nn
+
+#----------i3----------
+
+#Reload the configuration file
+bindsym $mod+Shift+c reload
+
+#Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+
+#Exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Really?' -b 'Vihodi, cyka' 'i3-msg exit'"
+
+
+
+#----------Binded Applications----------
+
+#Terminal:
+bindsym $mod+Return exec xfce4-terminal
+
+#Nautilus:
+bindsym $mod+n exec nautilus --no-desktop
+
+#Dmenu:
+bindsym $mod+d exec dmenu_run
+
+
+#----------i3 Bar----------
+
+bar {
+	position top
+	separator_symbol "〈  "
+ 	font pango:Terminus 9
+	status_command i3blocks -c ~/.i3/i3blocks.conf
+	  colors {
+	    separator #ffffff
+	    background #1A1A1A
+	    statusline #d2d2d2
+	    focused_workspace #1A1A1A #2A2A2A #c16b26
+	    active_workspace #1A1A1A #1A1A1A #c16b26
+	    inactive_workspace #1A1A1A #1A1A1A #c16b26
+	    urgent_workspace #d33682 #d33682 #fdf6e3
+	  }
+}
+
+client.focused 		#313131 #313131 #313131 #313131
+client.focused_inactive #313131 #313131 #313131 #313131
+client.unfocused 	#313131 #313131 #313131 #313131
+client.urgent 		#313131 #313131 #313131 #313131
+
+#----------Start-Up----------
+
+#Set background
+exec feh --bg-scale -Z ~/Pictures/wallpapers/1480114090023.png
+
+#Set Keyboard layouts
+exec setxkbmap "us,ru,ua" ",winkeys" "grp:alt_shift_toggle"
+
+#Start keyboard watcher
+
+
