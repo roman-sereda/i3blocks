@@ -9,8 +9,6 @@ font pango:terminus 8
 #window
 new_window pixel 2
 new_float pixel 2
-gaps inner 12
-gaps outer 0
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -119,17 +117,11 @@ bindsym $mod+d exec dmenu_run
 
 bar {
 	position top
-	separator_symbol "〈  "
- 	font pango:Terminus 9
 	status_command i3blocks -c ~/.i3/i3blocks.conf
 	  colors {
-	    separator #ffffff
 	    background #1A1A1A
-	    statusline #d2d2d2
 	    focused_workspace #1A1A1A #2A2A2A #c16b26
-	    active_workspace #1A1A1A #1A1A1A #c16b26
 	    inactive_workspace #1A1A1A #1A1A1A #c16b26
-	    urgent_workspace #d33682 #d33682 #fdf6e3
 	  }
 }
 
@@ -147,5 +139,3 @@ exec feh --bg-scale -Z ~/Pictures/wallpapers/1480114090023.png
 exec setxkbmap "us,ru,ua" ",winkeys" "grp:alt_shift_toggle"
 
 #Start keyboard watcher
-
-

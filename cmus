@@ -1,22 +1,62 @@
 #!/bin/bash
 
+COLOR=$(echo ${BLOCK_INSTANCE} | awk ' {print $2} ')
+ICON=$(echo ${BLOCK_INSTANCE} | awk ' {print $4} ')
+MAX=$(echo ${BLOCK_INSTANCE} | awk ' {print $6} ')
+MODE=$(echo ${BLOCK_INSTANCE} | awk ' {print $8} ')
+
 INFO_CMUS=$(cmus-remote -Q 2>/dev/null)
+
 if [[ $? -eq 0 ]]; then
-   INFO_TITLE=$(echo "${INFO_CMUS}" | sed -n 2p | cut -d "-" -f2  | cut -d "." -f1 )
-   POSITION=$(echo "${INFO_CMUS}" | grep "position" | sed -e "s/^position//")
-   DURATION=$(echo "${INFO_CMUS}" | grep "duration" | sed -e "s/^duration//")
+
+  POSITION=$(echo "${INFO_CMUS}" | grep "position" | sed -e "s/^position//")
+  DURATION=$(echo "${INFO_CMUS}" | grep "duration" | sed -e "s/^duration//")
+
+  MPOSITION=$(printf "%02d" $(echo "scale=0;${POSITION}/60" | bc -l))
+  MDURATION=$(printf "%02d" $(echo "scale=0;${DURATION}/60" | bc -l))
+
+  TIME=$(echo ${MPOSITION}:$(printf "%02d" $(echo "${POSITION} - 60*${MPOSITION}" | bc -l)) / ${MDURATION}:$(printf "%02d" $(echo "${DURATION} - 60*${MDURATION}" | bc -l)))
+
+  TITLE=$(echo "${INFO_CMUS}" | grep -i 'tag title' | sed -e "s/^tag title//")
+
+  if [[ ${MODE} == "ti" ]]; then
+    OUT=$(echo ${TITLE:0:${MAX}} ${TIME})
+  elif [[ ${MODE} == "ti_al" ]]; then
+    ALBUM=$(echo "${INFO_CMUS}" | grep -i 'tag album' | sed -e "s/^tag album//")
+
+    if [[ ${ALBUM} != "" ]]; then
+      ALBUM=$(echo " - ${ALBUM}")
+    fi
+
+    OUT=$(echo ${TITLE:0:${MAX}} ${ALBUM:0:${MAX}} ${TIME})
+
+  elif [[ ${MODE} == "ti_ar" ]]; then
+    ARTIST=$(echo "${INFO_CMUS}" | grep -i 'tag artist' | sed -e "s/^tag artist//")
+
+    if [[ ${ARTIST} != "" ]]; then
+      ARTIST=$(echo " - ${ARTIST}")
+    fi
+
+    OUT=$(echo ${TITLE:0:${MAX}} ${ARTIST:0:${MAX}} ${TIME})
+
+  elif [[ ${MODE} == "ti_al_ar" ]]; then
+    ALBUM=$(echo "${INFO_CMUS}" | grep -i 'tag album' | sed -e "s/^tag album//")
+    ARTIST=$(echo "${INFO_CMUS}" | grep -i 'tag artist' | sed -e "s/^tag artist//")
+
+    if [[ ${ARTIST} != "" ]]; then
+      ARTIST=$(echo " - ${ARTIST}")
+    fi
+
+    if [[ ${ALBUM} != "" ]]; then
+      ALBUM=$(echo " - ${ALBUM}")
+    fi
+
+    OUT=$(echo ${TITLE:0:${MAX}} ${ARTIST:0:${MAX}} $(echo ${ALBUM:0:${MAX}} || "none") ${TIME})
+  fi
+
 else
-  exit
+  OUT=$("Cmus off")
 fi
 
-MPOSITION=$(echo "scale=0;${POSITION}/60" | bc -l)
-SPOSITION=$(printf "%02d" $(echo "${POSITION} - 60*${MPOSITION}" | bc -l))
-MPOSITION=$(printf "%02d" ${MPOSITION})
-MDURATION=$(echo "scale=0;${DURATION}/60" | bc -l)
-SDURATION=$(printf "%02d" $(echo "${DURATION} - 60*${MDURATION}" | bc -l))
-MDURATION=$(printf "%02d" ${MDURATION})
-
-OUT=$(echo "<span color='#ae1738'><span font='FontAwesome'>" "</span>"${INFO_TITLE:0:25} ${MPOSITION}:${SPOSITION} / ${MDURATION}:${SDURATION}"</span>")
-
-echo "${OUT}"
+echo "<span color='${COLOR}'><span font='FontAwesome'>${ICON} </span> ${OUT} </span>"
 exit
