@@ -1,7 +1,7 @@
 #!/bin/bash
 
-date=$(date '+%d-%m |%l:%M %p')
+date=$(date '+%d.%m %H:%M %p')
 
 if [[ "${date}" != "" ]]; then
-  echo "<span color='#c19c19'><span font='FontAwesome'>" "</span>"${date}"</span>" 
+  echo "<span color='#c19c19'><span font='FontAwesome'>""</span>" ${date}"</span>"
 fi

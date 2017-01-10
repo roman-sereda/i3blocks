@@ -1,3 +1,6 @@
+![alt tag](https://raw.githubusercontent.com/roman-sereda/i3blocks/55107125c890256b49f7bb29bbf50d32b5c6e786/screenshot/screenshot.png)
+
+
 ## Scripts
 ###CMUS
 Instances: color, icon, max, mode
