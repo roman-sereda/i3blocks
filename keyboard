@@ -2,8 +2,9 @@
 
 COLOR=$(echo ${BLOCK_INSTANCE} | awk ' {print $2} ')
 ICON=$(echo ${BLOCK_INSTANCE} | awk ' {print $4} ')
+PATH=$(echo ${BLOCK_INSTANCE} | awk ' {print $6} ')
 
-CURRENT_LAYOUT=$(/home/drunken/xkblayout-state/xkblayout-state print "%n")
+CURRENT_LAYOUT=$(${PATH} print "%n")
 
 if [[ "${CURRENT_LAYOUT}" != "" ]]; then
   echo "<span color='${COLOR}'><span font='FontAwesome'>"${ICON} "</span>" ${CURRENT_LAYOUT}"</span>"
