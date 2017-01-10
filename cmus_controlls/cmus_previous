@@ -1,0 +1,10 @@
+#!/bin/bash
+
+COLOR=$(echo ${BLOCK_INSTANCE} | awk ' {print $2} ')
+ICON=$(echo ${BLOCK_INSTANCE} | awk ' {print $4} ')
+
+if [[ "${BLOCK_BUTTON}" -eq 1 ]]; then
+  cmus-remote --prev
+fi
+
+echo "<span color='${COLOR}'><span font='FontAwesome'>" ${ICON}"</span></span>"

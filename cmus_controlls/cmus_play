@@ -1,0 +1,24 @@
+#!/bin/bash
+
+COLOR=$(echo ${BLOCK_INSTANCE} | awk ' {print $2} ')
+ICON=$(echo ${BLOCK_INSTANCE} | awk ' {print $4} ')
+ICON2=$(echo ${BLOCK_INSTANCE} | awk ' {print $6} ')
+
+INFO_CMUS=$(cmus-remote -Q 2>/dev/null)
+
+STATUS=$(echo "${INFO_CMUS}" | grep "status" | sed -e "s/^status//")
+
+if [[ ${STATUS} == " paused" ]]; then
+  if [[ "${BLOCK_BUTTON}" -eq 1 ]]; then
+    cmus-remote --play
+  fi
+  echo "<span color='${COLOR}'><span font='FontAwesome'> ${ICON} </span></span>"
+elif [[ ${STATUS} == " playing" ]]; then
+  if [[ "${BLOCK_BUTTON}" -eq 1 ]]; then
+    cmus-remote --pause
+  fi
+  echo "<span color='${COLOR}'><span font='FontAwesome'> ${ICON2} </span></span>"
+fi
+
+
+exit

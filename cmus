@@ -58,5 +58,5 @@ else
   OUT=$(echo "Cmus off")
 fi
 
-echo "<span color='${COLOR}'><span font='FontAwesome'>${ICON} </span> ${OUT} </span>"
+echo "<span color='${COLOR}'><span font='FontAwesome'>"${ICON} "</span>" ${OUT}"</span>"
 exit

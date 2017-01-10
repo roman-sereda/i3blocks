@@ -1,5 +1,5 @@
-# Scripts
-##CMUS
+## Scripts
+###CMUS
 Instances: color, icon, max, mode
 
 You can use three modes:
@@ -10,7 +10,21 @@ You can use three modes:
 
 `max` - max string size
 
-##KEYBOARD
+###CMUS CONTROLLS
+I dont find anyway to create one file with three buttons, so instead we have three
+script files in `cmus_controllers` folder.
+
+#####CMUS_NEXT
+Instances: color, icon
+
+#####CMUS_PREVIOUS
+Instances: color, icon
+
+#####CMUS_PLAY
+Instances: color, icon_play, icon_pause
+
+
+###KEYBOARD
 Instances: color, icon, path
 
 To use this, you need:
@@ -18,3 +32,5 @@ To use this, you need:
 - Make
 - Add path to this repository to the path instance
 `/home/username/xkblayout-state/`
+
+###MEMORY
