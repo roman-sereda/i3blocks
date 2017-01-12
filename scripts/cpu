@@ -1,0 +1,6 @@
+#!/bin/bash
+
+CPU=$(grep 'cpu ' /proc/stat)
+
+
+echo "<span color='#c16b26'><span font='FontAwesome'>""</span>" ${CPU}"</span>"

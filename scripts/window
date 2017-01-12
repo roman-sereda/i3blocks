@@ -5,8 +5,8 @@ $ACTIVE_WINDOW = $ACTIVE_WINDOW
 
 if [[ "${ACTIVE_WINDOW}" != "" ]]; then
 	if [[ "${#ACTIVE_WINDOW}" > 17 ]]; then
- echo "<span color='#c63735'><span font='FontAwesome'>""</span>" ${ACTIVE_WINDOW:0:17}.."</span>"
+ echo "<span color='#c16b26'><span font='FontAwesome'>""</span>" ${ACTIVE_WINDOW:0:17}.."</span>"
 	else
- echo "<span color='#c63735'>" ${ACTIVE_WINDOW:0:20}"</span>"
+ echo "<span color='#c16b26'>" ${ACTIVE_WINDOW:0:20}"</span>"
 	fi
 fi

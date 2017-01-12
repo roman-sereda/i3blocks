@@ -6,10 +6,11 @@ BATTERY_STATE=$(echo "${BATTERY_INFO}" | grep -wo "Full\|Charging\|Discharging")
 BATTERY_POWER=$(echo "${BATTERY_INFO}" | grep -o '[0-9]\+%' | tr -d '%')
 
 if [[ "${BATTERY_STATE}" = "Charging" ]]; then
-  echo "<span color='#c2871f'><span font='FontAwesome'>""</span>" ${BATTERY_POWER}%-"</span>"
+  STATUS="+"
 elif [[ "${BATTERY_STATE}" = "Discharging" ]]; then
-  echo "<span color='#c2871f'><span font='FontAwesome'>""</span>" ${BATTERY_POWER}%+"</span>"
+  STATUS="-"
 else
-  echo "<span color='#c2871f'><span font='FontAwesome'>""</span>" ${BATTERY_POWER}%"</span>"
+  STATUS=" "
 fi
 
+echo "<span color='#96531d'>BAT: </span><span color='#c16b26'>${BATTERY_POWER}%‌‌‌‌‌‌‌‌‌‌‌‌‌${STATUS} </span>"

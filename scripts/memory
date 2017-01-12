@@ -1,10 +1,9 @@
 #!/bin/bash
 
 Mem=$(vmstat -s | sed -n 2p | sed s/[^0-9]//g)
-Mem=$(echo "${Mem}/1024" | bc -l)
+TotalMem=$(vmstat -s | sed -n 1p | sed s/[^0-9]//g)
 
-MEMG=$(echo "${Mem}/1024" | bc -l)
-MEMG=$(printf "%01d" "${MEMG}")
-MEMM=$(printf "%02d" $(echo "${Mem}/10 - 102.4*${MEMG}" | bc -l))
+Mem=$(echo "scale=1;${Mem}/1048576" | bc -l)
+TotalMem=$(echo "scale=1;${TotalMem}/1048576" | bc -l)
 
-echo "<span color='#c55a2b'><span font='FontAwesome'>""</span>" ${MEMG}.${MEMM} / 7.7"</span>"
+echo "<span color='#96531d'>RAM: </span><span color='#c16b26'>${Mem} / ${TotalMem}</span>"

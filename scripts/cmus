@@ -15,12 +15,12 @@ if [[ $? -eq 0 ]]; then
   MPOSITION=$(printf "%02d" $(echo "scale=0;${POSITION}/60" | bc -l))
   MDURATION=$(printf "%02d" $(echo "scale=0;${DURATION}/60" | bc -l))
 
-  TIME=$(echo ${MPOSITION}:$(printf "%02d" $(echo "${POSITION} - 60*${MPOSITION}" | bc -l)) / ${MDURATION}:$(printf "%02d" $(echo "${DURATION} - 60*${MDURATION}" | bc -l)))
+  TIME=$(echo ${MPOSITION}:$(printf "%02d" $(echo "${POSITION} - 60*${MPOSITION}" | bc -l))/${MDURATION}:$(printf "%02d" $(echo "${DURATION} - 60*${MDURATION}" | bc -l)))
 
   TITLE=$(echo "${INFO_CMUS}" | grep -i 'tag title' | sed -e "s/^tag title//")
 
   if [[ ${MODE} == "ti" ]]; then
-    OUT=$(echo ${TITLE:0:${MAX}} ${TIME})
+    OUT=$(echo ${TITLE})
   elif [[ ${MODE} == "ti_al" ]]; then
     ALBUM=$(echo "${INFO_CMUS}" | grep -i 'tag album' | sed -e "s/^tag album//")
 
@@ -28,7 +28,7 @@ if [[ $? -eq 0 ]]; then
       ALBUM=$(echo " - ${ALBUM}")
     fi
 
-    OUT=$(echo ${TITLE:0:${MAX}} ${ALBUM:0:${MAX}} ${TIME})
+    OUT=$(echo ${TITLE} ${ALBUM})
 
   elif [[ ${MODE} == "ti_ar" ]]; then
     ARTIST=$(echo "${INFO_CMUS}" | grep -i 'tag artist' | sed -e "s/^tag artist//")
@@ -37,7 +37,7 @@ if [[ $? -eq 0 ]]; then
       ARTIST=$(echo " - ${ARTIST}")
     fi
 
-    OUT=$(echo ${TITLE:0:${MAX}} ${ARTIST:0:${MAX}} ${TIME})
+    OUT=$(echo ${TITLE} ${ARTIST})
 
   elif [[ ${MODE} == "ti_al_ar" ]]; then
     ALBUM=$(echo "${INFO_CMUS}" | grep -i 'tag album' | sed -e "s/^tag album//")
@@ -51,12 +51,18 @@ if [[ $? -eq 0 ]]; then
       ALBUM=$(echo " - ${ALBUM}")
     fi
 
-    OUT=$(echo ${TITLE:0:${MAX}} ${ARTIST:0:${MAX}} $(echo ${ALBUM:0:${MAX}} || "none") ${TIME})
+    OUT=$(echo ${TITLE} ${ARTIST} $(echo ${ALBUM} || "none"))
   fi
 
 else
   OUT=$(echo "Cmus off")
 fi
+SPACE="‌‌‌                                                                                      "
+if [[ ${#OUT} -lt ${MAX} ]]; then
+  TER=$(echo "${MAX}-${#OUT}" | bc -l)
+else
+  TER="0"
+fi
 
-echo "<span color='${COLOR}'><span font='FontAwesome'>"${ICON} "</span>" ${OUT}"</span>"
+echo "<span color='${COLOR}'>${SPACE:0:${TER}+21} <span color='#96531d'>${OUT:0:${MAX}} -</span> ${TIME}</span>"
 exit

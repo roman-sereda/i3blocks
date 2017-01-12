@@ -6,8 +6,16 @@ PATH=$(echo ${BLOCK_INSTANCE} | awk ' {print $6} ')
 
 CURRENT_LAYOUT=$(${PATH} print "%n")
 
+if [[ ${CURRENT_LAYOUT} == "English" ]]; then
+  CURRENT_LAYOUT="Eng"
+elif [[ ${CURRENT_LAYOUT} == "Russian" ]]; then
+  CURRENT_LAYOUT="Rus"
+elif [[ ${CURRENT_LAYOUT} == "Ukrainian" ]]; then
+  CURRENT_LAYOUT="Ukr"
+fi
+
 if [[ "${CURRENT_LAYOUT}" != "" ]]; then
-  echo "<span color='${COLOR}'><span font='FontAwesome'>"${ICON} "</span>" ${CURRENT_LAYOUT}"</span>"
+  echo "<span color='#96531d'>LAN: </span><span color='#c16b26'>${CURRENT_LAYOUT}</span>"
 else
   exit
 fi

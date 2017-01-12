@@ -7,4 +7,4 @@ if [[ "${BLOCK_BUTTON}" -eq 1 ]]; then
   cmus-remote --prev
 fi
 
-echo "<span color='${COLOR}'><span font='FontAwesome'>" ${ICON}"</span></span>"
+echo "<span color='${COLOR}'><span font='FontAwesome'>"${ICON}"</span></span>"
